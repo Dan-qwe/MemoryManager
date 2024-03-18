@@ -16,8 +16,13 @@ public class Execute {
 	
 	SystemOperation.SystemCall(SystemCallType.DELETE, p2, 0);
 	
-	Process p5 = SystemOperation.SystemCall(SystemCallType.CREATE, null, 8);
+	Process p5 = SystemOperation.SystemCall(SystemCallType.CREATE, null, 40);
 	SystemOperation.SystemCall(SystemCallType.WRITE, p5, 0);
+	
+	/*
+	 * Process p6 = SystemOperation.SystemCall(SystemCallType.CREATE, null, 8);
+	SystemOperation.SystemCall(SystemCallType.WRITE, p6, 0);
+	 */
 	
 	}
 }

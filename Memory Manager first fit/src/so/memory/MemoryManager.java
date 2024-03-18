@@ -1,13 +1,25 @@
 package so.memory;
+import java.util.Hashtable;
+import java.util.List;
+
 import so.Process;
 public class MemoryManager {
 	
 	private Strategy strategy;
+	private int pageSize;
 	private String[] physicMemory;
+	private Hashtable<String,List<FrameMemory>> logicalMemory;
 	
-	public MemoryManager(Strategy strategy){
+	public MemoryManager(Strategy strategy, int pageSize){
 		this.strategy = strategy;
 		this.physicMemory = new String[128];
+		this.logicalMemory = new Hashtable<>();
+		this.pageSize = pageSize;
+		 
+	}
+	public MemoryManager(Strategy strategy){
+		this(strategy, 2);
+		
 	}
 
 	public void writeProcess(Process p) {
@@ -95,8 +107,3 @@ public class MemoryManager {
 		
 	}
 }
-	
-	
-	
-	
-
