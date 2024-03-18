@@ -19,10 +19,8 @@ public class Execute {
 	Process p5 = SystemOperation.SystemCall(SystemCallType.CREATE, null, 40);
 	SystemOperation.SystemCall(SystemCallType.WRITE, p5, 0);
 	
-	/*
-	 * Process p6 = SystemOperation.SystemCall(SystemCallType.CREATE, null, 8);
+	Process p6 = SystemOperation.SystemCall(SystemCallType.CREATE, null, 8);
 	SystemOperation.SystemCall(SystemCallType.WRITE, p6, 0);
-	 */
 	
 	}
 }

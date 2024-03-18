@@ -18,7 +18,7 @@ public class SystemOperation {
 		}
 		
 		else if(type.equals(SystemCallType.DELETE)) {
-			mm.deleteProcess();
+			mm.deleteProcess(p);
 		}
 		
 		else if(type.equals(SystemCallType.CREATE)) {
@@ -26,7 +26,7 @@ public class SystemOperation {
 				cm = new CpuManager();
 			}
 			if(mm == null) {
-				mm = new MemoryManager(Strategy.FIRST_FIT);
+				mm = new MemoryManager(Strategy.BEST_FIT);
 			}
 			return new Process(pageSize);
 		}

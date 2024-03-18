@@ -40,17 +40,90 @@ public class MemoryManager {
 		
 
 	private void writingUsingPaging(Process p) {
-		// TODO Auto-generated method stub
+		int numPages = (int) Math.ceil((double) p.getSizeInMemory() / pageSize);
+	    int pageCount = 0;
+	    
+	    for (int i = 0; i < physicMemory.length; i++) {
+	        if (physicMemory[i] == null) {
+	        	System.out.println("inicio");
+	            physicMemory[i] = p.getId() + "-" + pageCount;
+	            pageCount++;
+	            if (pageCount == numPages) {
+	            	System.out.println("antes do break");
+	                break;
+	            }
+	        }
+	    }
+	    
+	    if (pageCount < numPages) {
+	        System.out.println("Não há espaço suficiente na memória para alocar o processo.");
+	        // Aqui você pode implementar um tratamento para lidar com a falta de espaço.
+	    }
+	    
+	    printStatusMemory();
 		
 	}
 
 	private void writingUsingWorstFit(Process p) {
-		// TODO Auto-generated method stub
+		int maxBlockSize = -1;
+	    int worstFitIndex = -1;
+	    
+	    for (int i = 0; i < physicMemory.length; i++) {
+	        int blockSize = 0;
+	        for (int j = i; j < physicMemory.length; j++) {
+	            if (physicMemory[j] == null) {
+	                blockSize++;
+	            } else {
+	                break;
+	            }
+	        }
+	        if (blockSize >= p.getSizeInMemory() && blockSize > maxBlockSize) {
+	            maxBlockSize = blockSize;
+	            worstFitIndex = i;
+	        }
+	    }
+	    
+	    if (worstFitIndex != -1) {
+	        for (int i = worstFitIndex; i < worstFitIndex + p.getSizeInMemory(); i++) {
+	            physicMemory[i] = p.getId();
+	        }
+	    } else {
+	        System.out.println("Não há espaço suficiente na memória para alocar o processo.");
+	    }
+	    
+	    printStatusMemory();
 		
 	}
 
 	private void writingUsingBestFit(Process p) {
-		// TODO Auto-generated method stub
+
+	    int minBlockSize = Integer.MAX_VALUE;
+	    int bestFitIndex = -1;
+	    
+	    for (int i = 0; i < physicMemory.length; i++) {
+	        int blockSize = 0;
+	        for (int j = i; j < physicMemory.length; j++) {
+	            if (physicMemory[j] == null) {
+	                blockSize++;
+	            } else {
+	                break;
+	            }
+	        }
+	        if (blockSize >= p.getSizeInMemory() && blockSize < minBlockSize) {
+	            minBlockSize = blockSize;
+	            bestFitIndex = i;
+	        }
+	    }
+	    
+	    if (bestFitIndex != -1) {
+	        for (int i = bestFitIndex; i < bestFitIndex + p.getSizeInMemory(); i++) {
+	            physicMemory[i] = p.getId();
+	        }
+	    } else {
+	        System.out.println("Não há espaço suficiente na memória para alocar o processo.");
+	    }
+	    
+	    printStatusMemory();
 		
 	}
 
@@ -102,8 +175,15 @@ public class MemoryManager {
 		}
 	}
 
-	public void deleteProcess() {
-		// TODO Auto-generated method stub
+	public void deleteProcess(Process p) {
+
+	    for (int i = 0; i < physicMemory.length; i++) {
+	        if (physicMemory[i] != null && physicMemory[i].startsWith(p.getId())) {
+	            physicMemory[i] = null;
+	        }
+	    }
+	    
+	    printStatusMemory();
 		
 	}
 }
